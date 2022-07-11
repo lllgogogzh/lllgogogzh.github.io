@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html
+  lang="zh"
+  dir="ltr"
+  
+><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Delta Robot 正逆运动学推导与代码 | 博客</title>
+
+<meta name="generator" content="Hugo Eureka 0.9.1" />
+<link rel="stylesheet" href="/css/eureka.min.9cec6350e37e534b0338fa9a085bf06855de3b0f2dcf857e792e5e97b07ea905d4d5513db554cbc26a9c3da622bae92d.css">
+<script defer src="/js/eureka.min.f1639ee98d6cbd85b2b5f034d27320da962002ff83159ed4e01dbc5948c42a1ab26c2d6e74c66e93f5cec4d24dbd166d.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+  href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&amp;family=Noto&#43;Serif&#43;SC:wght@400;600;700&amp;display=swap"
+  as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/base16/solarized-light.min.css"
+   media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"
+   crossorigin></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/languages/dart.min.js"
+     crossorigin></script>
+<link rel="stylesheet" href="/css/highlightjs.min.2958991528e43eb6fc9b8c4f2b8e052f79c4010718e1d1e888a777620e9ee63021c2c57ec7417a3108019bb8c41943e6.css" media="print" onload="this.media='all';this.onload=null">
+
+
+<script defer type="text/javascript" src="/js/fontawesome.min.62367250f865fb431e8f98254d504ce92aa2a3c00e6cd4abecf076b04968c871718654c3184c818163cea55e9ca4de53.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css"
+   integrity="sha384-MlJdn/WNKDGXveldHDdyRP1R4CTHr3FeuDNfhsLPYrq2t0UBkUdK2jyTnXPEK1NQ"  media="print"
+  onload="this.media='all';this.onload=null" crossorigin>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js" 
+  integrity="sha384-VQ8d8WVFw0yHhCk5E8I86oOhv48xLpnDZx5T9GogA/Y84DcCKWXDmSDfn13bzFZY"  crossorigin></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js"
+   integrity="sha384-&#43;XBljXPPiv&#43;OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR"  crossorigin></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: "$$", right: "$$", display: true },
+        { left: "$", right: "$", display: false },
+        { left: "\\(", right: "\\)", display: false },
+        { left: "\\[", right: "\\]", display: true }
+      ],
+    });
+  });
+</script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.14.0/dist/mermaid.min.js" 
+  integrity="sha384-atOyb0FxAgN9LyAc6PEf9BjgwLISyansgdH8/VXQH8p2o5vfrRgmGIJ2Sg22L0A0"  crossorigin></script>
+
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_32x32_fill_box_center_3.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon_hu64421c6c7700f606f0ad45d807017b09_5843_180x180_fill_box_center_3.png">
+
+<meta name="description"
+  content="Eureka is a elegant and powerful theme for Hugo.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1 ,
+      "name":"Posts",
+      "item":"/posts/"},{
+      "@type": "ListItem",
+      "position": 2 ,
+      "name":"Delta Robot 正逆运动学推导与代码",
+      "item":"/post/3/"}]
+}
+</script>
+
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/post/3/"
+    },
+    "headline": "Delta Robot 正逆运动学推导与代码 | 博客","datePublished": "2021-04-24T11:10:53+00:00",
+    "dateModified": "2022-05-16T00:00:00+00:00",
+    "wordCount":  869 ,
+    "publisher": {
+        "@type": "Person",
+        "name": "WANG Chucheng",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "/images/icon.png"
+        }
+        },
+    "description": "Eureka is a elegant and powerful theme for Hugo."
+}
+</script><meta property="og:title" content="Delta Robot 正逆运动学推导与代码 | 博客" />
+<meta property="og:type" content="article" />
+
+
+<meta property="og:image" content="/images/icon.png">
+
+
+<meta property="og:url" content="/post/3/" />
+
+
+
+
+<meta property="og:description" content="" />
+
+
+
+
+<meta property="og:locale" content="zh" />
+
+
+
+
+<meta property="og:site_name" content="博客" />
+
+
+
+
+
+
+<meta property="article:published_time" content="2021-04-24T11:10:53&#43;00:00" />
+
+
+<meta property="article:modified_time" content="2022-05-16T00:00:00&#43;00:00" />
+
+
+
+<meta property="article:section" content="posts" />
+
+
+
+
+
+  <body class="flex min-h-screen flex-col">
+    <header
+      class="min-h-16 pl-scrollbar bg-secondary-bg fixed z-50 flex w-full items-center shadow-sm"
+    >
+      <div class="mx-auto w-full max-w-screen-xl"><script>
+    let storageColorScheme = localStorage.getItem("lightDarkMode")
+    if (((storageColorScheme == 'Auto' || storageColorScheme == null) && window.matchMedia("(prefers-color-scheme: dark)").matches) || storageColorScheme == "Dark") {
+        document.getElementsByTagName('html')[0].classList.add('dark')
+    }
+</script>
+<nav class="flex items-center justify-between flex-wrap px-4 py-4 md:py-0">
+    <a href="/" class="me-6 text-primary-text text-xl font-bold">博客</a>
+    <button id="navbar-btn" class="md:hidden flex items-center px-3 py-2" aria-label="Open Navbar">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div id="target"
+        class="hidden block md:flex md:grow md:justify-between md:items-center w-full md:w-auto text-primary-text z-20">
+        <div class="md:flex md:h-16 text-sm md:grow pb-4 md:pb-0 border-b md:border-b-0">
+            <a href="/posts/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">文章</a>
+            <a href="/docs/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">文档</a>
+            <a href="/#about" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">关于</a>
+            <a href="/archives/" class="block mt-4 md:inline-block md:mt-0 md:h-(16-4px) md:leading-(16-4px) box-border md:border-t-2 md:border-b-2  border-transparent  me-4">存档</a>
+        </div>
+
+        <div class="flex">
+            <div class="relative pt-4 md:pt-0">
+                <div class="cursor-pointer hover:text-eureka" id="lightDarkMode">
+                    <i class="fas fa-adjust"></i>
+                </div>
+                <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-30" id="is-open">
+                </div>
+                <div class="absolute flex flex-col start-0 md:start-auto end-auto md:end-0 hidden bg-secondary-bg w-48 rounded py-2 border border-tertiary-bg cursor-pointer z-40"
+                    id='lightDarkOptions'>
+                    <span class="px-4 py-1 hover:text-eureka" name="Light">浅色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Dark">深色</span>
+                    <span class="px-4 py-1 hover:text-eureka" name="Auto">自动</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed hidden inset-0 opacity-0 h-full w-full cursor-default z-0" id="is-open-mobile">
+    </div>
+
+</nav>
+<script>
+    
+    let element = document.getElementById('lightDarkMode')
+    if (storageColorScheme == null || storageColorScheme == 'Auto') {
+        document.addEventListener('DOMContentLoaded', () => {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener('change', switchDarkMode)
+        })
+    } else if (storageColorScheme == "Light") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'sun')
+        element.firstElementChild.classList.add('fa-sun')
+    } else if (storageColorScheme == "Dark") {
+        element.firstElementChild.classList.remove('fa-adjust')
+        element.firstElementChild.setAttribute("data-icon", 'moon')
+        element.firstElementChild.classList.add('fa-moon')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        getcolorscheme();
+        switchBurger();
+    });
+</script>
+</div>
+    </header>
+    <main class="grow pt-16">
+        <div class="pl-scrollbar">
+          <div class="mx-auto w-full max-w-screen-xl lg:px-4 xl:px-8">
+  
+  
+  <div class="grid grid-cols-2 gap-4 lg:grid-cols-8 lg:pt-12">
+    <div
+      class="lg:col-start-2 bg-secondary-bg col-span-2 rounded px-6 py-8 lg:col-span-6"
+    >
+      <article class="prose">
+  <h1 class="mb-4">Delta Robot 正逆运动学推导与代码</h1>
+
+  <div
+  class="text-tertiary-text not-prose mt-2 flex flex-row flex-wrap items-center"
+>
+  <div class="me-6 my-2">
+    <i class="fas fa-calendar me-1"></i>
+    <span
+      >2021-04-24</span
+    >
+  </div>
+  <div class="me-6 my-2">
+    <i class="fas fa-clock me-1"></i>
+    <span>5分钟阅读时长</span>
+  </div>
+
+  
+    <div class="me-6 my-2">
+      <i class="fas fa-folder me-1"></i>
+      
+        <a href="/categories/robot/" class="hover:text-eureka"
+          >Robot</a
+        >
+      
+        
+          <span>, </span>
+        <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/" class="hover:text-eureka"
+          >嵌入式</a
+        >
+      
+    </div>
+  
+
+  
+</div>
+
+
+  
+  
+
+  <p>Delta Robot Kinematics with code C++ Matlab</p>
+<h2 id="forward-kinematics">Forward Kinematics</h2>
+<p><img src="./%E5%9B%BE%E7%89%87-3.png" alt="">
+<img src="./%E5%9B%BE%E7%89%87-5.png" alt=""></p>
+<p>c++</p>
+<pre><code class="language-C">void robotForward(const double* q, double* TransVector, bool mconfig)
+{
+
+	double fi[3] = { 0,120,240 };
+	double theta_tmp[6];
+	for (int i = 0; i &lt; 6; i++)
+	{
+		theta_tmp[i] = q[i];
+		//cout &lt;&lt; &quot;theta：&quot; &lt;&lt; theta_tmp[i] &lt;&lt; endl;
+	}
+
+	double  D[3][3] = { 0 };
+	for (int i = 0; i &lt; 3; i++)
+	{
+		D[i][0] = (R - r + L * cos_angle(theta_tmp[i])) * cos_angle(fi[i]);
+		D[i][1] = (R - r + L * cos_angle(theta_tmp[i])) * sin_angle(fi[i]);
+		D[i][2] = -L * sin_angle(theta_tmp[i]);
+
+		//D[i][0] = (R - r - L * sin_angle(theta_tmp[i])) * cos_angle(fi[i]);
+		//D[i][1] = (R - r - L * sin_angle(theta_tmp[i])) * sin_angle(fi[i]);
+		//D[i][2] = -L*cos_angle(theta_tmp[i]);
+	}
+
+
+	double  a= PointDist(D[0],D[1]);
+	double  b = PointDist(D[1], D[2]);
+	double  c = PointDist(D[2], D[0]);
+	
+	double p = (a + b + c) / 2;
+	double S = sqrt(p * (p-a) * (p-b) * (p-c));
+	double FE_norm = (a * a + b * b - c * c) * c / (8 * S);
+	double nFE;
+	nFE = sqrt(pow(a * b * c / 4 / S, 2) - pow(b / 2, 2));
+		double vD21[3], vD23[3], vD32[3];
+		VectorSub(D[1], D[0], vD21);
+		VectorSub(D[1], D[2], vD23);
+		VectorSub(D[2], D[1], vD32);
+		double  D21xD23[3];
+		VectorCross(vD21, vD23, D21xD23);
+		double  D21xD23xD32[3];
+		VectorCross(D21xD23, vD32, D21xD23xD32);
+		//double nFE_norm=VectorNorm(nFE);
+		//VectorNumDivide(nFE, nFE_norm, nFE);
+
+		double nD21xD23 = VectorNorm(D21xD23);
+		double nD21xD23xD32 = VectorNorm(D21xD23xD32);
+
+		double  R11 = a * b * c / 4 / S;
+
+		for (int i = 0; i &lt; 3; i++)
+		{
+			TransVector[(i+1)*4-1] = nFE * D21xD23xD32[i] / nD21xD23xD32 + sqrt(pow(l, 2) - pow(R11, 2)) * D21xD23[i] / nD21xD23 + (D[2-1][i] + D[3 - 1][i]) / 2;
+		}
+
+}
+</code></pre>
+<p>matlab</p>
+<pre><code class="language-matlab">function [dis]=PointDist(p1, p2)
+		dis = 0.0;
+		for i=1:3
+			dis = dis+(p1(i) - p2(i))^2;
+        end
+		dis=sqrt(dis);
+end
+function Position=forward_trans(theta_tmp)
+        R  = 200;
+        r  = 45;
+        L = 350;
+        l = 800;
+        fi = [0,120,240];
+        D=zeros(3,3);
+        Position=zeros(1,3);
+		for i=1:3
+			D(i,1) = (R - r + L * cosd(theta_tmp(i))) * cosd(fi(i));
+			D(i,2) = (R - r + L * cosd(theta_tmp(i))) * sind(fi(i));
+			D(i,3) = -L * sind(theta_tmp(i));
+        end
+		a= PointDist(D(1,:),D(2,:));
+		b = PointDist(D(2,:), D(3,:));
+		c = PointDist(D(3,:), D(1,:));
+		
+		p = (a + b + c) / 2;
+		S = sqrt(p * (p-a) * (p-b) * (p-c));
+		FE_norm = (a * a + b * b - c * c) * c / (8 * S);
+		nFE = sqrt((a * b * c / 4 / S)^2 - (b/2)^2);
+		%vD21(3), vD23[3], vD32[3];
+        vD21=D(2,:)-D(1,:);
+        vD23=D(2,:)-D(3,:);
+        vD32=D(3,:)-D(2,:);
+
+         D21xD23=cross(vD21, vD23);
+         D21xD23xD32=cross(D21xD23, vD32);
+         
+		 nD21xD23 = norm(D21xD23);
+		 nD21xD23xD32 = norm(D21xD23xD32);
+
+		 R11 = a * b * c / 4 / S;
+		 for i=1:3
+			 Position(i)= nFE * D21xD23xD32(i) / nD21xD23xD32 + sqrt(l^2 - R11^2) * D21xD23(i) / nD21xD23 + (D(2-1,i) + D(3 - 1,i)) / 2;
+             %Position(i)=TransVector(i,4);
+         end
+end
+
+</code></pre>
+<h2 id="backward-kinematics">Backward Kinematics</h2>
+<p><img src="./%E5%9B%BE%E7%89%87-6.png" alt="">
+<img src="./%E5%9B%BE%E7%89%87-7.png" alt="">
+<img src="./%E5%9B%BE%E7%89%87-8.png" alt="">
+c++</p>
+<pre><code class="language-C++">void robotBackward(const double* TransVector, bool mconfig, double* theta)
+{
+	double A[3] = { 0 };
+	double B[3] = { 0 };
+	double C[3] = { 0 };
+
+	double  x = TransVector[3];
+	double  y = TransVector[7];
+	double  z = TransVector[11];
+
+
+	A[0] = (pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(R - r, 2) + pow(L, 2) - pow(l, 2) - 2 * x * (R - r)) / 2 / L - (R - r - x);
+	B[0] = 2 * z;
+	C[0] = (pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(R - r, 2) + pow(L, 2) - pow(l, 2) - 2 * x * (R - r)) / 2 / L + (R - r - x);
+	A[1] = (pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(R - r, 2) + pow(L, 2) - pow(l, 2) + (x - sqrt(3) * y) * (R - r)) / L / 2 - (R - r + x / 2 - sqrt(3) / 2 * y);
+	B[1] = 2 * z;
+	C[1] = (pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(R - r, 2) + pow(L, 2) - pow(l, 2) + (x - sqrt(3) * y) * (R - r)) / L / 2 + (R - r + x / 2 - sqrt(3) / 2 * y);
+	A[2] = (pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(R - r, 2) + pow(L, 2) - pow(l, 2) + (x + sqrt(3) * y) * (R - r)) / L / 2 - (R - r + x / 2 + sqrt(3) / 2 * y);
+	B[2] = 2 * z;
+	C[2] = (pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(R - r, 2) + pow(L, 2) - pow(l, 2) + (x + sqrt(3) * y) * (R - r)) / L / 2 + (R - r + x / 2 + sqrt(3) / 2 * y);//15
+
+	double num = 0, den = 0;
+	for (int i = 0; i &lt; 3; i++)
+	{
+		if (pow(B[i], 2) - 4 * A[i] * C[i] &gt;= 0)
+			num = -B[i] - sqrt(pow(B[i], 2) - 4 * A[i] * C[i]);
+		den = 2 * A[i];
+		*(theta + i) = rad2angle(2 * atan(num / den));
+	}
+	*(theta + 3) = 202.19;
+}
+</code></pre>
+<h2 id="application">Application：</h2>
+<p><img src="./%E5%9B%BE%E7%89%87-9.png" alt=""></p>
+<h2 id="reference">Reference：</h2>
+<p>参考链接</p>
+<p><a href="https://blog.csdn.net/qq413886183/article/details/106993725/">https://blog.csdn.net/qq413886183/article/details/106993725/</a></p>
+<p>[1] Clavel R. Dispositif pour le deplacement et le positionnement d’un element dans l’espace[P].Switzerland: CH1985005348856,1985.<br>
+[2] 赵杰,朱延河,蔡鹤皋.Delta型并联机器人运动学正解几何解法[J].哈尔滨工业大学学报,2003(01):25-27.<br>
+[3] 伍经纹,徐世许,王鹏,宋婷婷.基于Adams的三自由度Delta机械手的运动学仿真分析[J].软件,2017,38(06):108-112.</p>
+</article>
+
+
+      
+
+      
+
+
+
+      
+
+      
+
+      
+
+
+
+    </div>
+    
+
+    
+    
+  </div>
+
+  
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        hljs.highlightAll();
+      });
+    </script>
+
+          </div>
+        </div>
+      
+    </main>
+    <footer class="pl-scrollbar">
+      <div class="mx-auto w-full max-w-screen-xl"><div class="text-center p-6 pin-b">
+    <p class="text-sm text-tertiary-text">&copy; 2022 <a href="https://blog.kquark.com/">Eli</a>
+ &middot;  Powered by the <a href="https://github.com/wangchucheng/hugo-eureka" class="hover:text-eureka">Eureka</a> theme for <a href="https://gohugo.io" class="hover:text-eureka">Hugo</a></p>
+</div></div>
+    </footer>
+  </body>
+</html>
