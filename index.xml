@@ -8,13 +8,22 @@
     <language>zh</language>
     <copyright>&amp;copy; 2022 &lt;a href=&#34;https://blog.kquark.com/&#34;&gt;Eli&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Sat, 24 Apr 2021 11:10:53 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 12 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nonlinear Optimazation and Bundle Adjustment</title>
+      <link>/post/2/</link>
+      <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Delta Robot 正逆运动学推导与代码</title>
-      <link>/post/3/</link>
+      <link>/post/1/</link>
       <pubDate>Sat, 24 Apr 2021 11:10:53 +0000</pubDate>
       
-      <guid>/post/3/</guid>
+      <guid>/post/1/</guid>
       <description></description>
     </item>
     
