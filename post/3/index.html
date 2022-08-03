@@ -104,7 +104,7 @@
     },
     "headline": "旋转矩阵以及坐标变换 | 博客","datePublished": "2022-08-03T00:00:00+00:00",
     "dateModified": "2022-08-03T00:00:00+00:00",
-    "wordCount":  34 ,
+    "wordCount":  31 ,
     "publisher": {
         "@type": "Person",
         "name": "WANG Chucheng",
@@ -291,14 +291,11 @@ q_2=R_{21}q_1
 $$
 上式表示，<strong>点q在坐标系1中的坐标为q1，经过变换后，可以得到其在坐标系2中的坐标，为p2。</strong></p>
 <h4 id="图例">图例：</h4>
-<p><img src="D:/git_gzh/blog/content/zh/posts/2022-08-03-%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5%E4%BB%A5%E5%8F%8A%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2/1.png" alt="1"></p>
+<p><img src="1.png" alt="1"></p>
 <p>​	我们有坐标系1，把坐标系1沿z轴逆时针旋转90度，得到坐标系2。点p在坐标系1中的坐标为(1,0,0)。旋转过后，在坐标系2中的坐标明显为(0,-1,0)。</p>
 <p>​	我们再根据公式，得到旋转矩阵为：
 $$
-R_{21}=
-\begin{bmatrix}
-0&amp;1&amp;0\-1&amp;0&amp;0\0&amp;0&amp;1
-\end{bmatrix}
+R_{21}=\begin{bmatrix}0&amp;1&amp;0\-1&amp;0&amp;0\0&amp;0&amp;1\end{bmatrix}
 $$
 经过公式
 $$
