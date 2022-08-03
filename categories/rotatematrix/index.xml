@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>VSLAM on 博客</title>
-    <link>/categories/vslam/</link>
-    <description>Recent content in VSLAM on 博客</description>
+    <title>RotateMatrix on 博客</title>
+    <link>/categories/rotatematrix/</link>
+    <description>Recent content in RotateMatrix on 博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>&amp;copy; 2022 &lt;a href=&#34;https://blog.kquark.com/&#34;&gt;Eli&lt;/a&gt;
 </copyright>
-    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/vslam/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/rotatematrix/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>旋转矩阵以及坐标变换</title>
       <link>/post/3/</link>
       <pubDate>Wed, 03 Aug 2022 00:00:00 +0000</pubDate>
       
       <guid>/post/3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Nonlinear Optimazation and Bundle Adjustment</title>
-      <link>/post/2/</link>
-      <pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2/</guid>
       <description></description>
     </item>
     
